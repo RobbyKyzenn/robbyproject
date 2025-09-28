@@ -1,0 +1,118 @@
+/* 1. Impor layer dasar Tailwind (WAJIB DI ATAS) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 2. Variabel & Gaya Dasar Kustom */
+@layer base {
+  /* Variabel warna untuk Light Mode (Default) */
+  :root {
+    --background: #ffffff;
+    --foreground: #171717;
+  }
+
+  /* Variabel warna untuk Dark Mode */
+  html.dark {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+
+  /* Gaya dasar untuk body */
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Sembunyikan scrollbar di semua browser */
+  html, body {
+    -ms-overflow-style: none;  /* IE dan Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+  ::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, dan Opera */
+  }
+}
+
+/* 3. Komponen Kustom */
+@layer components {
+  /* Komponen Marquee */
+  .marquee-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+  .marquee-text {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    animation: marquee 15s linear infinite;
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* Komponen Masonry Grid */
+  .my-masonry-grid {
+    display: flex;
+    margin-left: -30px; /* gutter size offset */
+    width: auto;
+  }
+  .my-masonry-grid_column {
+    padding-left: 30px; /* gutter size */
+    background-clip: padding-box;
+  }
+  .my-masonry-grid_column > div {
+    margin-bottom: 30px;
+  }
+}
+
+/* 4. Utilitas Kustom */
+@layer utilities {
+  /* Overlay dengan efek scanline statis */
+  .scanline-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+
+  /* Overlay dengan efek glow di tepian layar */
+  .glow-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    box-shadow: 
+      inset 0 0 100px 30px rgba(255, 255, 255, 0.15),
+      inset 0 0 150px 50px rgba(255, 255, 255, 0.1);
+    z-index: 9998;
+  }
+
+  /* Efek glow untuk logo */
+  .logo-glow {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+    transition: filter 0.3s ease-in-out;
+  }
+  .logo-glow:hover {
+    filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.8));
+  }
+}
